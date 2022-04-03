@@ -1,9 +1,7 @@
-package fr.florianchrx.repositories;
+package fr.florianchrx.tradingAPI.repositories;
 
-import fr.florianchrx.model.SymbolsEntity;
+import fr.florianchrx.tradingAPI.model.SymbolsEntity;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface SymbolsRepository extends CrudRepository<SymbolsEntity, Long> {
 }
