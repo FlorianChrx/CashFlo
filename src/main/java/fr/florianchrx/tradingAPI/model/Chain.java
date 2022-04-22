@@ -1,33 +1,34 @@
 package fr.florianchrx.tradingAPI.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Objects;
 
-/**
- * Represents a symbol (asset) which can be trade
- */
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "symbols", schema = "trading")
-public class SymbolsEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Table(name = "chain")
+public class Chain {
     @Id
-    @Column(name = "id", nullable = false)
-    private long id;
-    @Basic
-    @Column(name = "label")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_chain", nullable = false)
+    private Long id;
+
+    @Column(name = "label", nullable = false, length = 32)
     private String label;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SymbolsEntity that = (SymbolsEntity) o;
-        return id == that.id && Objects.equals(label, that.label);
+        Chain chain = (Chain) o;
+        return id.equals(chain.id) && label.equals(chain.label);
     }
 
     @Override
