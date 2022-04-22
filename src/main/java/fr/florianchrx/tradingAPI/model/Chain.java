@@ -8,6 +8,10 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * This class represents a Chain (or a stock exchange). It's a place where an account is stored.
+ * @see Account
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

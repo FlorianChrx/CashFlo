@@ -9,6 +9,11 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * This class represents a trade.
+ * A trade is a sell or a buy transaction (with a value, an amount, a symbol) at a defined date.
+ * Example: a buy of 1 BTC at 7000 the 24th December 2022.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

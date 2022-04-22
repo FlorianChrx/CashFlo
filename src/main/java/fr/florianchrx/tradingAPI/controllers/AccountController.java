@@ -5,6 +5,11 @@ import fr.florianchrx.tradingAPI.repositories.AccountRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * This controller helps to manage trading accounts. A trading account is an actual
+ * quantity of a symbol on an address in specific chain.
+ * @see Account
+ */
 @RestController
 @RequestMapping(path = "/account")
 public class AccountController {

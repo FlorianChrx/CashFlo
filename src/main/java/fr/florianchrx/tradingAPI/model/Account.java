@@ -8,6 +8,10 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * This class represents an account. A trading account is an actual
+ * quantity of a symbol on an address in specific chain (for crypto, stock exchange for stocks).
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

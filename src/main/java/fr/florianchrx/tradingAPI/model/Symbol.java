@@ -8,6 +8,10 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * This class represents a symbol. A symbol is the financial code of something tradable.
+ * For example AAPL for Apple stock, BTC for Bitcoin, USD for US dollar.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

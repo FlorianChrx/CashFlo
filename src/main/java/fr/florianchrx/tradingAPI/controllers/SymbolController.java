@@ -6,6 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * This controller helps to manage symbols. A symbol is the financial code of something tradable.
+ * For example AAPL for Apple stock, BTC for Bitcoin, USD for US dollar.
+ * @see Symbol
+ */
 @RestController
 @RequestMapping(path = "/symbol")
 public class SymbolController {
