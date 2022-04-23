@@ -110,7 +110,7 @@ public class TradeController {
      * @param id the id of the symbol
      * @return the benefits buy price for this symbol. If the result is negative it means that it's actually a loose.
      */
-    @GetMapping("/symbol/{id}/average/buy")
+    @GetMapping("/symbol/{id}/benefits")
     public double getBenefitsOfSymbol(@PathVariable long id) {
         return new SimpleCalculator(getBuysBySymbol(id), getSellsBySymbol(id)).getBenefits();
     }
