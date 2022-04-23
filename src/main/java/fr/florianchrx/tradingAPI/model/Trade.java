@@ -41,6 +41,10 @@ public class Trade {
     @Column(name = "date_execution", nullable = false)
     private LocalDate dateExecution;
 
+    public double getPrice() {
+        return value / amount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
