@@ -1,5 +1,6 @@
 package fr.florianchrx.tradingAPI.controllers;
 
+import fr.florianchrx.tradingAPI.model.Response;
 import fr.florianchrx.tradingAPI.model.SimpleCalculator;
 import fr.florianchrx.tradingAPI.model.Trade;
 import fr.florianchrx.tradingAPI.repositories.TradesRepository;
@@ -27,8 +28,8 @@ public class TradeController {
      * @return an Iterable of trades
      */
     @GetMapping("/all")
-    public Iterable<Trade> all() {
-        return tradesRepository.findAll();
+    public Response<Iterable<Trade>> all() {
+        return new Response<>(tradesRepository.findAll());
     }
 
     /**
@@ -38,8 +39,8 @@ public class TradeController {
      * @return the queried trade
      */
     @GetMapping("/id/{id}")
-    public Trade get(@PathVariable long id) {
-        return tradesRepository.findById(id).orElse(null);
+    public Response<Trade> get(@PathVariable long id) {
+        return new Response<>(tradesRepository.findById(id).orElse(null));
     }
 
     /**
@@ -49,8 +50,8 @@ public class TradeController {
      * @return the added trade
      */
     @PutMapping
-    public Trade add(@RequestBody Trade trade) {
-        return tradesRepository.save(trade);
+    public Response<Trade> add(@RequestBody Trade trade) {
+        return new Response<>(tradesRepository.save(trade));
     }
 
     /**
@@ -60,8 +61,8 @@ public class TradeController {
      * @return the updated trade
      */
     @PostMapping("/id/{id}")
-    public Trade edit(@RequestBody Trade trade) {
-        return tradesRepository.save(trade);
+    public Response<Trade> edit(@RequestBody Trade trade) {
+        return new Response<>(tradesRepository.save(trade));
     }
 
     /**
@@ -70,8 +71,8 @@ public class TradeController {
      * @return an iterable of all buy trades
      */
     @GetMapping("/all/buys")
-    public Iterable<Trade> getBuys() {
-        return tradesRepository.getBuys();
+    public Response<Iterable<Trade>> getBuys() {
+        return new Response<>(tradesRepository.getBuys());
     }
 
     /**
@@ -80,8 +81,8 @@ public class TradeController {
      * @return an iterable of all sell trades
      */
     @GetMapping("/all/sells")
-    public Iterable<Trade> getSells() {
-        return tradesRepository.getSells();
+    public Response<Iterable<Trade>> getSells() {
+        return new Response<>(tradesRepository.getSells());
     }
 
     /**
@@ -90,8 +91,8 @@ public class TradeController {
      * @return an iterable of queried buy trades
      */
     @GetMapping("/symbol/{id}/buys")
-    public Iterable<Trade> getBuysBySymbol(@PathVariable long id) {
-        return tradesRepository.getBuysBySymbol(id);
+    public Response<Iterable<Trade>> getBuysBySymbol(@PathVariable long id) {
+        return new Response<>(tradesRepository.getBuysBySymbol(id));
     }
 
     /**
@@ -100,8 +101,8 @@ public class TradeController {
      * @return an iterable of queried sell trades
      */
     @GetMapping("/symbol/{id}/sells")
-    public Iterable<Trade> getSellsBySymbol(@PathVariable long id) {
-        return tradesRepository.getSellsBySymbol(id);
+    public Response<Iterable<Trade>> getSellsBySymbol(@PathVariable long id) {
+        return new Response<>(tradesRepository.getSellsBySymbol(id));
     }
 
     /**
@@ -111,7 +112,7 @@ public class TradeController {
      * @return the benefits buy price for this symbol. If the result is negative it means that it's actually a loose.
      */
     @GetMapping("/symbol/{id}/benefits")
-    public double getBenefitsOfSymbol(@PathVariable long id) {
-        return new SimpleCalculator(getBuysBySymbol(id), getSellsBySymbol(id)).getBenefits();
+    public Response<Double> getBenefitsOfSymbol(@PathVariable long id) {
+        return new Response<>(new SimpleCalculator(getBuysBySymbol(id).getData(), getSellsBySymbol(id).getData()).getBenefits());
     }
 }
