@@ -115,4 +115,26 @@ public class TradeController {
     public Response<Double> getBenefitsOfSymbol(@PathVariable long id) {
         return new Response<>(new SimpleCalculator(getBuysBySymbol(id).getData(), getSellsBySymbol(id).getData()).getBenefits());
     }
+
+    /**
+     * Use for calculate the average buy price for specific symbol
+     *
+     * @param id the id of the symbol
+     * @return the average buy price for this symbol
+     */
+    @GetMapping("/symbol/{id}/average/buy")
+    public Response<Double> getAverageBuyPrice(@PathVariable long id) {
+        return new Response<>(new SimpleCalculator(getBuysBySymbol(id).getData(), getSellsBySymbol(id).getData()).getAverageBuyPrice());
+    }
+
+    /**
+     * Use for calculate the average sell price for specific symbol
+     *
+     * @param id the id of the symbol
+     * @return the average sell price for this symbol
+     */
+    @GetMapping("/symbol/{id}/average/sell")
+    public Response<Double> getAverageSellPrice(@PathVariable long id) {
+        return new Response<>(new SimpleCalculator(getBuysBySymbol(id).getData(), getSellsBySymbol(id).getData()).getAverageSellPrice());
+    }
 }
