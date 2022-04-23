@@ -1,5 +1,6 @@
 package fr.florianchrx.tradingAPI.controllers;
 
+import fr.florianchrx.tradingAPI.model.SimpleCalculator;
 import fr.florianchrx.tradingAPI.model.Trade;
 import fr.florianchrx.tradingAPI.repositories.TradesRepository;
 import org.springframework.web.bind.annotation.*;
@@ -103,4 +104,14 @@ public class TradeController {
         return tradesRepository.getSellsBySymbol(id);
     }
 
+    /**
+     * Use for calculate the benefits for specific symbol
+     *
+     * @param id the id of the symbol
+     * @return the benefits buy price for this symbol. If the result is negative it means that it's actually a loose.
+     */
+    @GetMapping("/symbol/{id}/average/buy")
+    public double getBenefitsOfSymbol(@PathVariable long id) {
+        return new SimpleCalculator(getBuysBySymbol(id), getSellsBySymbol(id)).getBenefits();
+    }
 }
