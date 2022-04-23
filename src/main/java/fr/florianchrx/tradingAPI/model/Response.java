@@ -22,9 +22,9 @@ public class Response<T> {
         this.data = data;
         this.success = success;
         this.message = message;
-        if (data == null) success = false;
-        if (!success && message == null) message = "An error has occurred";
-        if (success && message == null) message = "Operation has success";
+        if (data == null) this.success = false;
+        if (!success && message == null) this.message = "An error has occurred";
+        if (success && message == null) this.message = "Operation has success";
     }
 
     public Response(T data, boolean success) {
