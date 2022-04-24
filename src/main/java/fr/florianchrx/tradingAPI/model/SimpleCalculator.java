@@ -36,4 +36,9 @@ public class SimpleCalculator implements Calculator {
         double total = StreamSupport.stream(sells.spliterator(), false).map(Trade::getValue).reduce(0.0, Double::sum);
         return total / getBuyAmount();
     }
+
+    @Override
+    public double getActualAmount() {
+        return getBuyAmount() - getSellAmount();
+    }
 }
