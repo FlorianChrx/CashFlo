@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * This controller helps to manage trading accounts. A trading account is an actual
  * quantity of a symbol on an address in specific chain.
+ *
  * @see Account
  */
 @RestController
@@ -35,6 +36,12 @@ public class AccountController {
         return accountRepository.findAll();
     }
 
+    /**
+     * Use for generate a trade list which permits to be coherent with actual amount of account
+     *
+     * @param id the id of the account to be refreshed
+     * @return the list of trade added for refresh the account
+     */
     @GetMapping("/{id}/refresh")
     public Response<Iterable<Trade>> refresh(@PathVariable long id) {
         Account account = accountRepository.findById(id).orElseThrow();
