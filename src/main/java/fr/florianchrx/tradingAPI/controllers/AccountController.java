@@ -1,7 +1,10 @@
 package fr.florianchrx.tradingAPI.controllers;
 
-import fr.florianchrx.tradingAPI.model.Account;
+import fr.florianchrx.tradingAPI.model.*;
 import fr.florianchrx.tradingAPI.repositories.AccountRepository;
+import fr.florianchrx.tradingAPI.repositories.TradesRepository;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController {
 
     private final AccountRepository accountRepository;
+    private final TradesRepository tradesRepository;
 
-    public AccountController(AccountRepository accountRepository) {
+    public AccountController(AccountRepository accountRepository, TradesRepository tradesRepository) {
         this.accountRepository = accountRepository;
+        this.tradesRepository = tradesRepository;
     }
 
     /**
@@ -25,7 +30,17 @@ public class AccountController {
      *
      * @return an iterable of account
      */
+    @GetMapping("/")
     public Iterable<Account> getAll() {
         return accountRepository.findAll();
+    }
+
+    @GetMapping("/{id}/refresh")
+    public Response<Iterable<Trade>> refresh(@PathVariable long id) {
+        Account account = accountRepository.findById(id).orElseThrow();
+        Calculator calculator = new SimpleCalculator(tradesRepository.getBuysBySymbol(account.getSymbol()), tradesRepository.getSellsBySymbol(account.getSymbol()));
+        Iterable<Trade> trades = new SimpleAccountManager(calculator).refresh(account);
+        tradesRepository.saveAll(trades);
+        return new Response<>(trades);
     }
 }
