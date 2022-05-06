@@ -50,4 +50,18 @@ public class AccountController {
         tradesRepository.saveAll(trades);
         return new Response<>(trades);
     }
+
+    /**
+     * Use for generate a trade list which permits to be coherent with actual amount of all accounts for a symbol
+     * @param symbolId the symbol id to be refreshed
+     * @return the list of trade added for refresh the symbol
+     */
+    @GetMapping("/symbol/{symbolId}/refresh")
+    public Response<Iterable<Trade>> refreshSymbol(@PathVariable long symbolId) {
+        Account account = accountRepository.findBySymbolId(symbolId);
+        Calculator calculator = new SimpleCalculator(tradesRepository.getBuysBySymbol(account.getSymbol()), tradesRepository.getSellsBySymbol(account.getSymbol()));
+        Iterable<Trade> trades = new SimpleAccountManager(calculator).refresh(account);
+        tradesRepository.saveAll(trades);
+        return new DeprecatedResponse<>(trades);
+    }
 }
