@@ -65,6 +65,6 @@ public class AccountController {
         Calculator calculator = new SimpleCalculator(tradesRepository.getBuysBySymbol(account.getSymbol()), tradesRepository.getSellsBySymbol(account.getSymbol()));
         Iterable<Trade> trades = new SimpleAccountManager(calculator).refresh(account);
         tradesRepository.saveAll(trades);
-        return new DeprecatedResponse<>(trades);
+        return new Response<>(trades);
     }
 }
