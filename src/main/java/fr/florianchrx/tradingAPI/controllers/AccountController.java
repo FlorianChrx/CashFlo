@@ -39,7 +39,7 @@ public class AccountController {
     /**
      * Use for generate a trade list which permits to be coherent with actual amount of account
      *
-     * @deprecated This method is actually not appropriate for this task. Use {}
+     * @deprecated This method is actually not appropriate for this task.
      *
      * @param id the id of the account to be refreshed
      * @return the list of trade added for refresh the account
