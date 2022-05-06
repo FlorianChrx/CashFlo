@@ -39,12 +39,29 @@ public class AccountController {
     /**
      * Use for generate a trade list which permits to be coherent with actual amount of account
      *
+     * @deprecated This method is actually not appropriate for this task.
+     *
      * @param id the id of the account to be refreshed
      * @return the list of trade added for refresh the account
      */
-    @GetMapping("/{id}/refresh")
+    @Deprecated
+    @GetMapping("/id/{id}/refresh")
     public Response<Iterable<Trade>> refresh(@PathVariable long id) {
         Account account = accountRepository.findById(id).orElseThrow();
+        Calculator calculator = new SimpleCalculator(tradesRepository.getBuysBySymbol(account.getSymbol()), tradesRepository.getSellsBySymbol(account.getSymbol()));
+        Iterable<Trade> trades = new SimpleAccountManager(calculator).refresh(account);
+        tradesRepository.saveAll(trades);
+        return new DeprecatedResponse<>(trades);
+    }
+
+    /**
+     * Use for generate a trade list which permits to be coherent with actual amount of all accounts for a symbol
+     * @param symbolId the symbol id to be refreshed
+     * @return the list of trade added for refresh the symbol
+     */
+    @GetMapping("/symbol/{symbolId}/refresh")
+    public Response<Iterable<Trade>> refreshSymbol(@PathVariable long symbolId) {
+        Account account = accountRepository.findBySymbolId(symbolId);
         Calculator calculator = new SimpleCalculator(tradesRepository.getBuysBySymbol(account.getSymbol()), tradesRepository.getSellsBySymbol(account.getSymbol()));
         Iterable<Trade> trades = new SimpleAccountManager(calculator).refresh(account);
         tradesRepository.saveAll(trades);

@@ -22,7 +22,7 @@ public class SimpleAccountManager implements AccountManager {
         double difference = account.getAmount() - calculator.getActualAmount();
         difference = Double.isNaN(difference) || Double.isInfinite(difference) ? 0 : new BigDecimal(difference).setScale(12, RoundingMode.CEILING).doubleValue();
         if (difference != 0)
-            result.add(new Trade(null, account.getSymbol(), difference, 0.0, difference < 0, LocalDate.now()));
+            result.add(new Trade(null, account.getSymbol(), -difference, 0.0, difference < 0, LocalDate.now()));
         return result;
     }
 }
