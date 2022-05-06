@@ -45,7 +45,7 @@ public class AccountController {
      * @return the list of trade added for refresh the account
      */
     @Deprecated
-    @GetMapping("/{id}/refresh")
+    @GetMapping("/id/{id}/refresh")
     public Response<Iterable<Trade>> refresh(@PathVariable long id) {
         Account account = accountRepository.findById(id).orElseThrow();
         Calculator calculator = new SimpleCalculator(tradesRepository.getBuysBySymbol(account.getSymbol()), tradesRepository.getSellsBySymbol(account.getSymbol()));
