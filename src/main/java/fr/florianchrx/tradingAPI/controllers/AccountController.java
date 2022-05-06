@@ -44,6 +44,7 @@ public class AccountController {
      * @param id the id of the account to be refreshed
      * @return the list of trade added for refresh the account
      */
+    @Deprecated
     @GetMapping("/{id}/refresh")
     public Response<Iterable<Trade>> refresh(@PathVariable long id) {
         Account account = accountRepository.findById(id).orElseThrow();
