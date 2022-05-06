@@ -39,6 +39,8 @@ public class AccountController {
     /**
      * Use for generate a trade list which permits to be coherent with actual amount of account
      *
+     * @deprecated This method is actually not appropriate for this task. Use {}
+     *
      * @param id the id of the account to be refreshed
      * @return the list of trade added for refresh the account
      */
@@ -48,7 +50,7 @@ public class AccountController {
         Calculator calculator = new SimpleCalculator(tradesRepository.getBuysBySymbol(account.getSymbol()), tradesRepository.getSellsBySymbol(account.getSymbol()));
         Iterable<Trade> trades = new SimpleAccountManager(calculator).refresh(account);
         tradesRepository.saveAll(trades);
-        return new Response<>(trades);
+        return new DeprecatedResponse<>(trades);
     }
 
     /**
