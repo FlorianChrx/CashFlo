@@ -1,6 +1,12 @@
 package fr.florianchrx.tradingAPI.controllers;
 
 import fr.florianchrx.tradingAPI.model.*;
+import fr.florianchrx.tradingAPI.model.response.DeprecatedResponse;
+import fr.florianchrx.tradingAPI.model.response.Response;
+import fr.florianchrx.tradingAPI.model.Trade;
+import fr.florianchrx.tradingAPI.model.utilities.Calculator;
+import fr.florianchrx.tradingAPI.model.utilities.SimpleAccountManager;
+import fr.florianchrx.tradingAPI.model.utilities.SimpleCalculator;
 import fr.florianchrx.tradingAPI.repositories.AccountRepository;
 import fr.florianchrx.tradingAPI.repositories.TradesRepository;
 import org.springframework.web.bind.annotation.GetMapping;

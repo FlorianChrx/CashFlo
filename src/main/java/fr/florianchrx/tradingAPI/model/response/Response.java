@@ -1,4 +1,4 @@
-package fr.florianchrx.tradingAPI.model;
+package fr.florianchrx.tradingAPI.model.response;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

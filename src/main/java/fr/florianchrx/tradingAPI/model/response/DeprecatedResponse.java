@@ -1,4 +1,6 @@
-package fr.florianchrx.tradingAPI.model;
+package fr.florianchrx.tradingAPI.model.response;
+
+import fr.florianchrx.tradingAPI.model.response.Response;
 
 public class DeprecatedResponse<T> extends Response<T> {
     public DeprecatedResponse(T data, boolean success, String message) {

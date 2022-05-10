@@ -1,5 +1,6 @@
-package fr.florianchrx.tradingAPI.model;
+package fr.florianchrx.tradingAPI.model.utilities;
 
+import fr.florianchrx.tradingAPI.model.Trade;
 import lombok.AllArgsConstructor;
 
 import java.util.stream.StreamSupport;

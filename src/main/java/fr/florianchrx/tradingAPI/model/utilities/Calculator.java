@@ -1,4 +1,4 @@
-package fr.florianchrx.tradingAPI.model;
+package fr.florianchrx.tradingAPI.model.utilities;
 
 /**
  * A calculator is an entity who can calculate some analytics values.
