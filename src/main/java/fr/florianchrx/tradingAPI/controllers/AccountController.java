@@ -2,11 +2,15 @@ package fr.florianchrx.tradingAPI.controllers;
 
 import fr.florianchrx.tradingAPI.model.*;
 import fr.florianchrx.tradingAPI.repositories.AccountRepository;
+import fr.florianchrx.tradingAPI.repositories.SymbolRepository;
 import fr.florianchrx.tradingAPI.repositories.TradesRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This controller helps to manage trading accounts. A trading account is an actual
@@ -20,10 +24,12 @@ public class AccountController {
 
     private final AccountRepository accountRepository;
     private final TradesRepository tradesRepository;
+    private final SymbolRepository symbolRepository;
 
-    public AccountController(AccountRepository accountRepository, TradesRepository tradesRepository) {
+    public AccountController(AccountRepository accountRepository, TradesRepository tradesRepository, SymbolRepository symbolRepository) {
         this.accountRepository = accountRepository;
         this.tradesRepository = tradesRepository;
+        this.symbolRepository = symbolRepository;
     }
 
     /**
@@ -75,6 +81,10 @@ public class AccountController {
      */
     @GetMapping("/refresh")
     public Response<Iterable<Iterable<Trade>>> refresh() {
-        return new Response<>(null, false, "Not yet implemented");
+        List<Iterable<Trade>> lists = new ArrayList<>();
+        for(Symbol symbol : symbolRepository.findAll()) {
+            lists.add(refresh(symbol.getId()).getData());
+        }
+        return new Response<>(lists);
     }
 }
