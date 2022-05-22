@@ -39,10 +39,9 @@ public class AccountController {
     /**
      * Use for generate a trade list which permits to be coherent with actual amount of account
      *
-     * @deprecated This method is actually not appropriate for this task.
-     *
      * @param id the id of the account to be refreshed
      * @return the list of trade added for refresh the account
+     * @deprecated This method is actually not appropriate for this task.
      */
     @Deprecated
     @GetMapping("/id/{id}/refresh")
@@ -56,6 +55,7 @@ public class AccountController {
 
     /**
      * Use for generate a trade list which permits to be coherent with actual amount of all accounts for a symbol
+     *
      * @param symbolId the symbol id to be refreshed
      * @return the list of trade added for refresh the symbol
      */
@@ -66,5 +66,15 @@ public class AccountController {
         Iterable<Trade> trades = new SimpleAccountManager(calculator).refresh(account);
         tradesRepository.saveAll(trades);
         return new Response<>(trades);
+    }
+
+    /**
+     * Use for call a refresh on all symbols
+     *
+     * @return All the list of trade which permit to be coherent with actual amounts of all symbols
+     */
+    @GetMapping("/refresh")
+    public Response<Iterable<Iterable<Trade>>> refresh() {
+        return new Response<>(null, false, "Not yet implemented");
     }
 }
