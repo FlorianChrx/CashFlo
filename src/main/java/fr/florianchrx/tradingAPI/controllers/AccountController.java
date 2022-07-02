@@ -38,8 +38,8 @@ public class AccountController {
      * @return an iterable of account
      */
     @GetMapping("/")
-    public Iterable<Account> getAll() {
-        return accountRepository.findAll();
+    public Response<Iterable<Account>> getAll() {
+        return new Response<>(accountRepository.findAll());
     }
 
     /**
@@ -82,7 +82,7 @@ public class AccountController {
     @GetMapping("/refresh")
     public Response<Iterable<Iterable<Trade>>> refresh() {
         List<Iterable<Trade>> lists = new ArrayList<>();
-        for(Symbol symbol : symbolRepository.findAll()) {
+        for (Symbol symbol : symbolRepository.findAll()) {
             lists.add(refresh(symbol.getId()).getData());
         }
         return new Response<>(lists);

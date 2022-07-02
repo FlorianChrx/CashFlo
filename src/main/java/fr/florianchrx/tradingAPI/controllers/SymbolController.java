@@ -1,5 +1,6 @@
 package fr.florianchrx.tradingAPI.controllers;
 
+import fr.florianchrx.tradingAPI.model.Response;
 import fr.florianchrx.tradingAPI.model.Symbol;
 import fr.florianchrx.tradingAPI.repositories.SymbolRepository;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,9 +29,9 @@ public class SymbolController {
      * @see Symbol
      */
     @GetMapping(path = "/all")
-    public Iterable<Symbol> all() {
+    public Response<Iterable<Symbol>> all() {
         System.out.println(symbolsRepository.findAll());
-        return symbolsRepository.findAll();
+        return new Response<>(symbolsRepository.findAll());
     }
 
 }
