@@ -35,6 +35,10 @@ public class BrowserCalculator implements Browser<Trade>, Calculator {
      * @param trade the trade to process
      */
     private void treatBuyTrade(Trade trade) {
+        if (amount == 0) {
+            averageSellPrice = 0;
+            amountSold = 0;
+        }
         averageBuyPrice = (averageBuyPrice * amountBought + trade.getValue()) / (trade.getAmount() + amountBought);
         amountBought += trade.getAmount();
         amount += trade.getAmount();
@@ -57,6 +61,10 @@ public class BrowserCalculator implements Browser<Trade>, Calculator {
         amountSold += trade.getAmount();
         amount -= trade.getAmount();
         profitAndLoss += (trade.getPrice() - averageBuyPrice) * trade.getAmount();
+        if (amount == 0) {
+            averageBuyPrice = 0;
+            amountBought = 0;
+        }
     }
 
     @Override
