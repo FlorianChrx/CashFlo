@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * This controller helps to manage trading accounts. A trading account is an actual
@@ -53,7 +55,8 @@ public class AccountController {
     @GetMapping("/id/{id}/refresh")
     public Response<Iterable<Trade>> refresh(@PathVariable long id) {
         Account account = accountRepository.findById(id).orElseThrow();
-        Calculator calculator = new SimpleCalculator(tradesRepository.getBuysBySymbol(account.getSymbol()), tradesRepository.getSellsBySymbol(account.getSymbol()));
+        BrowserCalculator calculator = new BrowserCalculator(StreamSupport.stream(tradesRepository.getBySymbol(id).spliterator(), false).collect(Collectors.toList()));
+        calculator.browseAll();
         Iterable<Trade> trades = new SimpleAccountManager(calculator).refresh(account);
         tradesRepository.saveAll(trades);
         return new DeprecatedResponse<>(trades);
@@ -68,7 +71,8 @@ public class AccountController {
     @GetMapping("/symbol/{symbolId}/refresh")
     public Response<Iterable<Trade>> refreshSymbol(@PathVariable long symbolId) {
         Account account = accountRepository.findBySymbolId(symbolId);
-        Calculator calculator = new SimpleCalculator(tradesRepository.getBuysBySymbol(account.getSymbol()), tradesRepository.getSellsBySymbol(account.getSymbol()));
+        BrowserCalculator calculator = new BrowserCalculator(StreamSupport.stream(tradesRepository.getBySymbol(symbolId).spliterator(), false).collect(Collectors.toList()));
+        calculator.browseAll();
         Iterable<Trade> trades = new SimpleAccountManager(calculator).refresh(account);
         tradesRepository.saveAll(trades);
         return new Response<>(trades);

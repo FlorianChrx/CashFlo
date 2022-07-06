@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import java.util.stream.StreamSupport;
 
 @AllArgsConstructor
+@Deprecated
 public class SimpleCalculator implements Calculator {
 
     private Iterable<Trade> buys;

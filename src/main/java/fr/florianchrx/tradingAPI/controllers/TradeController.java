@@ -1,10 +1,13 @@
 package fr.florianchrx.tradingAPI.controllers;
 
+import fr.florianchrx.tradingAPI.model.BrowserCalculator;
 import fr.florianchrx.tradingAPI.model.Response;
-import fr.florianchrx.tradingAPI.model.SimpleCalculator;
 import fr.florianchrx.tradingAPI.model.Trade;
 import fr.florianchrx.tradingAPI.repositories.TradesRepository;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * This controller helps to manages trades. A trade is a sell or a buy transaction (with a value, an amount, a symbol) at a defined date.
@@ -113,7 +116,9 @@ public class TradeController {
      */
     @GetMapping("/symbol/{id}/benefits")
     public Response<Double> getBenefitsOfSymbol(@PathVariable long id) {
-        return new Response<>(new SimpleCalculator(getBuysBySymbol(id).getData(), getSellsBySymbol(id).getData()).getBenefits());
+        BrowserCalculator calculator = new BrowserCalculator(StreamSupport.stream(tradesRepository.getBySymbol(id).spliterator(), false).collect(Collectors.toList()));
+        calculator.browseAll();
+        return new Response<>(calculator.getBenefits());
     }
 
     /**
@@ -124,7 +129,9 @@ public class TradeController {
      */
     @GetMapping("/symbol/{id}/average/buy")
     public Response<Double> getAverageBuyPrice(@PathVariable long id) {
-        return new Response<>(new SimpleCalculator(getBuysBySymbol(id).getData(), getSellsBySymbol(id).getData()).getAverageBuyPrice());
+        BrowserCalculator calculator = new BrowserCalculator(StreamSupport.stream(tradesRepository.getBySymbol(id).spliterator(), false).collect(Collectors.toList()));
+        calculator.browseAll();
+        return new Response<>(calculator.getAverageBuyPrice());
     }
 
     /**
@@ -135,6 +142,8 @@ public class TradeController {
      */
     @GetMapping("/symbol/{id}/average/sell")
     public Response<Double> getAverageSellPrice(@PathVariable long id) {
-        return new Response<>(new SimpleCalculator(getBuysBySymbol(id).getData(), getSellsBySymbol(id).getData()).getAverageSellPrice());
+        BrowserCalculator calculator = new BrowserCalculator(StreamSupport.stream(tradesRepository.getBySymbol(id).spliterator(), false).collect(Collectors.toList()));
+        calculator.browseAll();
+        return new Response<>(calculator.getAverageSellPrice());
     }
 }
