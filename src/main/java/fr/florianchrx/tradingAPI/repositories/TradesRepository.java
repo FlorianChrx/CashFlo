@@ -49,6 +49,6 @@ public interface TradesRepository extends CrudRepository<Trade, Long> {
      * @param id the id of the queried symbol
      * @return the list of all trades for this symbol
      */
-    @Query(nativeQuery = true, value = "SELECT * from trade where symbol = ?1 order by date_execution")
+    @Query(nativeQuery = true, value = "SELECT * from trade where symbol = ?1 order by date_execution, is_sell")
     Iterable<Trade> getBySymbol(long id);
 }

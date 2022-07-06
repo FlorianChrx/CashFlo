@@ -5,6 +5,8 @@ import fr.florianchrx.tradingAPI.repositories.TradesRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * A controller to permit swap between tokens
@@ -24,7 +26,9 @@ public class SwapController {
 
     @PostMapping(path = "/{idTokenFrom}/{idTokenTo}")
     public Response<Iterable<Trade>> swap(@PathVariable int idTokenFrom, @PathVariable int idTokenTo, @RequestBody Map<String, Double> amounts) {
-        double averageTokenPrice = new SimpleCalculator(tradesRepository.getBuysBySymbol(idTokenFrom), tradesRepository.getSellsBySymbol(idTokenFrom)).getAverageBuyPrice();
+        BrowserCalculator calculator = new BrowserCalculator(StreamSupport.stream(tradesRepository.getBySymbol(idTokenFrom).spliterator(), false).collect(Collectors.toList()));
+        calculator.browseAll();
+        double averageTokenPrice = calculator.getAverageBuyPrice();
         Iterable<Trade> resultTrades = swapper.swap(idTokenFrom, idTokenTo, amounts.get("amountTokenFrom"), amounts.get("amountTokenTo"), averageTokenPrice * amounts.get("amountTokenFrom"));
         tradesRepository.saveAll(resultTrades);
         return new Response<>(resultTrades);
