@@ -103,7 +103,7 @@ public class BrowserCalculator implements Browser<Trade>, Calculator {
     //TO DO
     @Override
     public Trade infos() {
-        return null;
+        return trades.get(idx);
     }
 
     @Override
