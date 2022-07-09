@@ -5,7 +5,7 @@ import java.util.List;
 public interface Swapper {
 
     /**
-     * Swap a token to an other. Buy creating a sell trade with average buy price and a buy with same price for the new token
+     * Swap a token to another by creating a sell trade with average buy price and a buy with same price for the new token
      * @param originTokenId the id of the token to swap
      * @param destinationTokenId the id of token to obtain
      * @param amountOriginToken the amount of origin token swapped

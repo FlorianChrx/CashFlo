@@ -83,12 +83,13 @@ public class AccountController {
      *
      * @return All the list of trade which permit to be coherent with actual amounts of all symbols
      */
+    @Deprecated
     @GetMapping("/refresh")
     public Response<Iterable<Iterable<Trade>>> refresh() {
         List<Iterable<Trade>> lists = new ArrayList<>();
         for (Symbol symbol : symbolRepository.findAll()) {
             lists.add(refresh(symbol.getId()).getData());
         }
-        return new Response<>(lists);
+        return new DeprecatedResponse<>(lists);
     }
 }

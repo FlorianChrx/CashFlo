@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 /**
- * This controller helps to manages trades. A trade is a sell or a buy transaction (with a value, an amount, a symbol) at a defined date.
+ * This controller helps to manage trades. A trade is a sell or a buy transaction (with a value, an amount, a symbol) at a defined date.
  * Example: a buy of 1 BTC at 7000 the 24th December 2022.
  *
  * @see Trade
