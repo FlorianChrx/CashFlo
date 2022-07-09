@@ -6,7 +6,6 @@ plugins {
 
 group = 'fr.florianchrx'
 version = '0.1.0-SNAPSHOT'
-sourceCompatibility = '18'
 
 configurations {
 	compileOnly {
