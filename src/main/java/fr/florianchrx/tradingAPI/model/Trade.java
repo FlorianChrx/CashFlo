@@ -40,7 +40,9 @@ public class Trade {
 
     @Column(name = "date_execution", nullable = false)
     private LocalDate dateExecution;
+
     public double getPrice() {
+        if (amount == 0) return 0;
         return value / amount;
     }
 
